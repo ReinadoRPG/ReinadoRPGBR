@@ -93,18 +93,19 @@
 
       /* Download - APENAS ESSA PARTE MODIFICADA */
       .download-area {
-        position: fixed; /* Alterado para fixed */
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        position: absolute; /* Alterado para absolute */
+        top: 20px; /* Fica no topo */
+        left: 0;
+        right: 0;
         text-align: center;
         font-family: "Cinzel", serif;
         z-index: 1000; /* Garante que fique acima */
+        padding: 20px;
       }
 
       .download-area p {
         font-size: 22px;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         color: #f5e6c8;
         text-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
       }
