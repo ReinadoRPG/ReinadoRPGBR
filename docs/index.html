@@ -128,6 +128,11 @@
 
   <body class="dark">
 
+    <!-- Áudio do sino medieval (embutido em texto) -->
+    <audio id="sinoMedieval" preload="auto">
+      <source src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA" type="audio/mp3">
+    </audio>
+
     <!-- Container de Avisos -->
     <div id="avisosContainer" class="avisos-container"></div>
 
@@ -137,7 +142,6 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
 
-        // Você pode empilhar vários avisos aqui futuramente
         const avisos = [
           {
             id: "manutencao_08_01_2026",
@@ -147,6 +151,7 @@
         ];
 
         const container = document.getElementById("avisosContainer");
+        const sino = document.getElementById("sinoMedieval");
 
         avisos.forEach(aviso => {
           const avisoSalvo = localStorage.getItem("avisoReinadoRPG_" + aviso.id);
@@ -170,6 +175,10 @@
           `;
 
           container.appendChild(div);
+
+          // toca o sino ao aparecer
+          sino.volume = 0.35;
+          sino.play().catch(() => {});
 
           const btn = div.querySelector(".btnEntendi");
           const checkbox = div.querySelector(".chkNaoMostrar");
