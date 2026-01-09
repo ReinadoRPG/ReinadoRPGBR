@@ -91,27 +91,43 @@
         cursor: pointer;
       }
 
-      /* Download */
+      /* Download - APENAS ESSA PARTE MODIFICADA */
       .download-area {
-        margin: 40px auto;
+        position: fixed; /* Alterado para fixed */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         text-align: center;
         font-family: "Cinzel", serif;
+        z-index: 1000; /* Garante que fique acima */
       }
 
       .download-area p {
-        font-size: 18px;
-        margin-bottom: 12px;
+        font-size: 22px;
+        margin-bottom: 25px;
+        color: #f5e6c8;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
       }
 
+      /* Botão transparente como pediu */
       .btn-download {
-        background: #4fa3ff;
-        color: white;
-        padding: 12px 26px;
+        background: transparent;
+        border: 2px solid #d4af37;
+        color: #d4af37;
+        padding: 15px 35px;
         border-radius: 10px;
         text-decoration: none;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 18px;
         display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+      }
+
+      .btn-download:hover {
+        background: rgba(212, 175, 55, 0.1);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+        transform: scale(1.05);
       }
 
       .popup-bg {
@@ -159,7 +175,7 @@
 
   <body class="dark">
 
-    <!-- Área de Download -->
+    <!-- Área de Download - MODIFICADA -->
     <div class="download-area">
       <p>📜 Baixe o grimório visual do Reino e aventure-se com estilo!</p>
       <a class="btn-download" href="javascript:void(0)" onclick="abrirPopup()">Download</a>
