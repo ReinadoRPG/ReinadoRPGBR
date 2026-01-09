@@ -10,13 +10,10 @@ import Loja from "@/pages/loja";
 import Regras from "@/pages/regras";
 import Comandos from "@/pages/comandos";
 import NotFound from "@/pages/not-found";
+import DownloadButton from "@/components/DownloadButton";
 import { CartProvider } from "@/context/CartContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 
-/**
- * 🔁 Fix para GitHub Pages + SPA (Wouter)
- * Permite recarregar páginas como /regras sem dar 404
- */
 const params = new URLSearchParams(window.location.search);
 const redirect = params.get("redirect");
 
@@ -48,6 +45,7 @@ function App() {
                 <Router />
               </main>
               <Footer />
+              <DownloadButton />
             </div>
             <Toaster />
           </TooltipProvider>
