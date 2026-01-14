@@ -2,16 +2,15 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Home, ShoppingBag, ScrollText, Terminal } from "lucide-react";
-import ThemeToggle from "./ThemeToggle";
+import { Menu, Home, ShoppingBag, ScrollText, Terminal, Map } from "lucide-react";
 import CartButton from "./CartButton";
-import LanguageSelector from "./LanguageSelector";
 
 const navItems = [
   { path: "/", label: "Inicio", icon: Home },
   { path: "/loja", label: "Loja", icon: ShoppingBag },
   { path: "/regras", label: "Regras", icon: ScrollText },
   { path: "/comandos", label: "Comandos", icon: Terminal },
+  { path: "http://mapa.reinadorpg.com.br:28472/", label: "Mapa", icon: Map, external: true },
 ];
 
 export default function Navigation() {
@@ -32,27 +31,35 @@ export default function Navigation() {
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location === item.path;
+              const button = (
+                <Button
+                  variant={isActive ? "default" : "ghost"}
+                  className={`font-medieval ${isActive ? "bg-amber-700 text-white" : "text-amber-800 dark:text-amber-200"}`}
+                  data-testid={`link-nav-${item.label.toLowerCase()}`}
+                >
+                  <Icon className="w-4 h-4 mr-2" />
+                  {item.label}
+                </Button>
+              );
+
+              if (item.external) {
+                return (
+                  <a key={item.label} href={item.path} target="_blank" rel="noopener noreferrer">
+                    {button}
+                  </a>
+                );
+              }
+
               return (
                 <Link key={item.path} href={item.path}>
-                  <Button
-                    variant={isActive ? "default" : "ghost"}
-                    className={`font-medieval ${isActive ? "bg-amber-700 text-white" : "text-amber-800 dark:text-amber-200"}`}
-                    data-testid={`link-nav-${item.label.toLowerCase()}`}
-                  >
-                    <Icon className="w-4 h-4 mr-2" />
-                    {item.label}
-                  </Button>
+                  {button}
                 </Link>
               );
             })}
-            <LanguageSelector />
-            <ThemeToggle />
             <CartButton />
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
-            <LanguageSelector />
-            <ThemeToggle />
             <CartButton />
           </div>
 
@@ -67,17 +74,29 @@ export default function Navigation() {
                 {navItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = location === item.path;
+                  const button = (
+                    <Button
+                      variant={isActive ? "default" : "ghost"}
+                      className={`w-full justify-start font-medieval text-lg ${isActive ? "bg-amber-700 text-white" : "text-amber-200"}`}
+                      onClick={() => !item.external && setIsOpen(false)}
+                      data-testid={`link-mobile-nav-${item.label.toLowerCase()}`}
+                    >
+                      <Icon className="w-5 h-5 mr-3" />
+                      {item.label}
+                    </Button>
+                  );
+
+                  if (item.external) {
+                    return (
+                      <a key={item.label} href={item.path} target="_blank" rel="noopener noreferrer">
+                        {button}
+                      </a>
+                    );
+                  }
+
                   return (
                     <Link key={item.path} href={item.path}>
-                      <Button
-                        variant={isActive ? "default" : "ghost"}
-                        className={`w-full justify-start font-medieval text-lg ${isActive ? "bg-amber-700 text-white" : "text-amber-200"}`}
-                        onClick={() => setIsOpen(false)}
-                        data-testid={`link-mobile-nav-${item.label.toLowerCase()}`}
-                      >
-                        <Icon className="w-5 h-5 mr-3" />
-                        {item.label}
-                      </Button>
+                      {button}
                     </Link>
                   );
                 })}

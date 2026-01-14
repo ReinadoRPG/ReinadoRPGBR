@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { SiDiscord } from "react-icons/si";
-import { SiWhatsapp } from "react-icons/si";
+import { SiDiscord, SiWhatsapp, SiTiktok, SiInstagram, SiYoutube } from "react-icons/si";
 import ServerStatus from "./ServerStatus";
 import backgroundImage from "@assets/background_1765854796078.jpg";
 
@@ -50,6 +49,33 @@ export default function HeroSection() {
           >
             <SiWhatsapp className="w-5 h-5" />
             Grupo WhatsApp
+          </Button>
+          <Button
+            size="lg"
+            className="bg-black text-white font-medieval text-lg gap-2 px-8 hover:bg-black/80"
+            onClick={() => window.open("https://tiktok.com", "_blank")}
+            data-testid="button-tiktok"
+          >
+            <SiTiktok className="w-5 h-5" />
+            TikTok
+          </Button>
+          <Button
+            size="lg"
+            className="bg-pink-600 text-white font-medieval text-lg gap-2 px-8 hover:bg-pink-700"
+            onClick={() => window.open("https://instagram.com", "_blank")}
+            data-testid="button-instagram"
+          >
+            <SiInstagram className="w-5 h-5" />
+            Instagram
+          </Button>
+          <Button
+            size="lg"
+            className="bg-red-600 text-white font-medieval text-lg gap-2 px-8 hover:bg-red-700"
+            onClick={() => window.open("https://youtube.com", "_blank")}
+            data-testid="button-youtube"
+          >
+            <SiYoutube className="w-5 h-5" />
+            YouTube
           </Button>
         </div>
 

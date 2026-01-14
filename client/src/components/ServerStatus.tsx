@@ -39,10 +39,10 @@ export default function ServerStatus() {
 
   if (error || !data) {
     return (
-      <Card className="bg-black/60 backdrop-blur-sm border-red-900/50 p-6">
+      <Card className="bg-black/60 backdrop-blur-sm border-amber-900/50 p-6">
         <div className="flex items-center gap-3">
-          <WifiOff className="w-6 h-6 text-red-500" />
-          <span className="font-medieval text-red-300 text-lg">Erro ao carregar status</span>
+          <WifiOff className="w-6 h-6 text-amber-500" />
+          <span className="font-medieval text-amber-200 text-lg">Servidor offline no momento</span>
         </div>
       </Card>
     );
@@ -59,7 +59,7 @@ export default function ServerStatus() {
               <WifiOff className="w-6 h-6 text-red-500" />
             )}
             <span className="font-medieval text-xl text-amber-100">
-              {data.online ? "Servidor Online" : "Servidor Offline"}
+              {data.online ? "Servidor Online" : "Servidor offline no momento"}
             </span>
             <Badge
               variant={data.online ? "default" : "destructive"}

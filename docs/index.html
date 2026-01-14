@@ -9,30 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=MedievalSharp&family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="./assets/index-CvHNlTzZ.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-B1qmIBnx.css">
+    <script type="module" crossorigin src="./assets/index-C4x_Jzx0.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CB9_3iI7.css">
   </head>
   <body class="dark">
-
-    <!-- Música de fundo -->
-    <audio id="bgm" loop>
-      <source src="./assets/musica.mp3" type="audio/mpeg">
-    </audio>
-
     <div id="root"></div>
-
-    <!-- Script para tocar no primeiro clique -->
-    <script>
-      const bgm = document.getElementById("bgm");
-
-      function iniciarMusica() {
-        bgm.volume = 0.4;
-        bgm.play().catch(() => {});
-        document.removeEventListener("click", iniciarMusica);
-      }
-
-      document.addEventListener("click", iniciarMusica);
-    </script>
-
   </body>
 </html>

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, ChevronDown, ChevronUp } from "lucide-react";
+import { Plus, ChevronDown, ChevronUp, CheckCircle2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ShopItemProps {
   id: string;
@@ -25,18 +26,39 @@ export default function ShopItem({
   packageItems,
 }: ShopItemProps) {
   const [showPackage, setShowPackage] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
   const { addItem } = useCart();
 
   const handleAddToCart = () => {
     addItem({ id, name, price });
+    setShowFeedback(true);
   };
+
+  useEffect(() => {
+    if (showFeedback) {
+      const timer = setTimeout(() => setShowFeedback(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showFeedback]);
 
   return (
     <Card
       className="bg-stone-900/90 dark:bg-stone-900/90 border-amber-900/50 relative overflow-visible"
       data-testid={`shop-item-${id}`}
     >
-      {popular && (
+      <AnimatePresence>
+        {showFeedback && (
+          <motion.div
+            initial={ { opacity: 0, x: 20, scale: 0.95 } }
+            animate={ { opacity: 1, x: 0, scale: 1 } }
+            exit={ { opacity: 0, x: 10, scale: 0.95 } }
+            className="absolute -right-4 top-1/2 -translate-y-1/2 z-20 w-48 bg-amber-600 text-white p-3 rounded-lg shadow-xl border border-amber-400 flex items-center gap-2 pointer-events-none"
+          >
+            <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+            <span className="font-medieval text-sm leading-tight">Adicionado ao carrinho!</span>
+          </motion.div>
+        )}
+      </AnimatePresence>      {popular && (
         <Badge
           className="absolute -top-2 -right-2 bg-amber-600 text-white font-medieval"
           data-testid={`badge-popular-${id}`}

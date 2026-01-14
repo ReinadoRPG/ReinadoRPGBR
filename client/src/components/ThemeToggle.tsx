@@ -3,23 +3,25 @@ import { Sun, Moon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const [isDark, setIsDark] = useState(() => {
+  const [theme, setTheme] = useState(() => {
     if (typeof window !== "undefined") {
-      return document.documentElement.classList.contains("dark");
+      return localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     }
-    return true;
+    return "dark";
   });
 
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
+    const root = window.document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
     } else {
-      document.documentElement.classList.remove("dark");
+      root.classList.remove("dark");
     }
-  }, [isDark]);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const toggleTheme = () => {
-    setIsDark(!isDark);
+    setTheme(prev => prev === "dark" ? "light" : "dark");
   };
 
   return (
@@ -30,7 +32,7 @@ export default function ThemeToggle() {
       className="text-amber-500 dark:text-amber-400"
       data-testid="button-theme-toggle"
     >
-      {isDark ? (
+      {theme === "dark" ? (
         <Sun className="w-5 h-5" />
       ) : (
         <Moon className="w-5 h-5" />
