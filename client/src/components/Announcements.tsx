@@ -12,22 +12,25 @@ const AVISOS_ATIVOS = true;
 
 // ARRAY DE AVISOS
 // Mude o 'id' para que o aviso reapareça para todos os usuários
-const avisosData = [
+// Para desativar um aviso específico, defina "ativo: false"
+const avisos = [
   {
     id: "14.01.2026",
+    ativo: true,
     titulo: "⚔ Aviso do Reino!",
     mensagem: "Bem-vindos ao ReinadoRPG! Explore nosso novo mapa e aproveite as promoções da loja!",
   },
 ];
 
 export function Announcements() {
-  const [activeAvisos, setActiveAvisos] = useState<typeof avisosData>([]);
+  const [activeAvisos, setActiveAvisos] = useState<typeof avisos>([]);
   const [dontShowAgain, setDontShowAgain] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (!AVISOS_ATIVOS) return;
 
-    const filtered = avisosData.filter((aviso) => {
+    const filtered = avisos.filter((aviso) => {
+      if (aviso.ativo === false) return false;
       const isHidden = localStorage.getItem(`avisoReinadoRPG_${aviso.id}`) === "oculto";
       return !isHidden;
     });
