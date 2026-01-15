@@ -1,10 +1,26 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SiDiscord, SiWhatsapp, SiTiktok, SiInstagram, SiYoutube } from "react-icons/si";
 import ServerStatus from "./ServerStatus";
 import backgroundImage from "@assets/background_1765854796078.jpg";
+import { Check, Copy } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function HeroSection() {
+  const { toast } = useToast();
+  const [copiedType, setCopiedType] = useState<string | null>(null);
+
+  const handleCopy = (value: string, type: string) => {
+    navigator.clipboard.writeText(value);
+    setCopiedType(type);
+    toast({
+      title: "IP Copiado!",
+      description: `${value} copiado com sucesso.`,
+    });
+    setTimeout(() => setCopiedType(null), 2000);
+  };
+
   return (
     <section
       className="relative min-h-screen flex flex-col items-center justify-center py-24 px-4"
@@ -80,18 +96,38 @@ export default function HeroSection() {
         </div>
 
         <Card className="mt-8 bg-black/60 backdrop-blur-sm border-amber-900/50 p-6 max-w-md w-full">
-          <div className="space-y-3 text-left">
-            <div>
-              <p className="font-medieval text-amber-300 text-sm">Java</p>
-              <code className="font-mono text-amber-400 text-lg" data-testid="text-ip-java">
-                jogar.reinadorpg.com.br
-              </code>
+          <div className="space-y-4 text-left">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="font-medieval text-amber-300 text-sm">Java</p>
+                <code className="font-mono text-amber-400 text-lg" data-testid="text-ip-java">
+                  jogar.reinadorpg.com.br
+                </code>
+              </div>
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-amber-500/40 text-amber-300 hover:text-amber-100 hover:bg-amber-900/20"
+                onClick={() => handleCopy("jogar.reinadorpg.com.br", "java")}
+              >
+                {copiedType === "java" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              </Button>
             </div>
-            <div>
-              <p className="font-medieval text-amber-300 text-sm">Bedrock/Mobile</p>
-              <code className="font-mono text-amber-400 text-lg" data-testid="text-ip-bedrock">
-                sd-br7.blazebr.com:25575
-              </code>
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="font-medieval text-amber-300 text-sm">Bedrock/Mobile</p>
+                <code className="font-mono text-amber-400 text-lg" data-testid="text-ip-bedrock">
+                  sd-br7.blazebr.com:25575
+                </code>
+              </div>
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-amber-500/40 text-amber-300 hover:text-amber-100 hover:bg-amber-900/20"
+                onClick={() => handleCopy("sd-br7.blazebr.com:25575", "bedrock")}
+              >
+                {copiedType === "bedrock" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              </Button>
             </div>
           </div>
         </Card>

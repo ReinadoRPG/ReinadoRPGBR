@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import DownloadButton from "@/components/DownloadButton";
+import { Announcements } from "@/components/Announcements";
 import Home from "@/pages/home";
 import Loja from "@/pages/loja";
 import Regras from "@/pages/regras";
@@ -49,6 +51,8 @@ function App() {
               </main>
               <Footer />
             </div>
+            <Announcements />
+            <DownloadButton />
             <Toaster />
           </TooltipProvider>
         </CartProvider>
