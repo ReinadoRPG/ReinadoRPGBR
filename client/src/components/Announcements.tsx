@@ -8,6 +8,7 @@ import { X, Bell } from "lucide-react";
 
 // CONFIGURAÇÃO DOS AVISOS
 // Mude 'AVISOS_ATIVOS' para false se quiser desativar o sistema de avisos
+// -> Arquivo: client/src/components/Announcements.tsx (alterar aqui)
 const AVISOS_ATIVOS = true;
 
 // ARRAY DE AVISOS
@@ -18,6 +19,7 @@ const avisosData = [
     titulo: "⚔ Aviso do Reino!",
     mensagem: "Bem-vindos ao ReinadoRPG! Explore nosso novo mapa e aproveite as promoções da loja!",
   },
+  // Exemplo: adicione mais objetos no mesmo formato { id, titulo, mensagem }
 ];
 
 export function Announcements() {
@@ -27,6 +29,14 @@ export function Announcements() {
   useEffect(() => {
     if (!AVISOS_ATIVOS) return;
 
+    // Inicializar estado do checkbox baseado no localStorage (para refletir se o usuário já marcou "Não exibir novamente")
+    const initialDontShow: Record<string, boolean> = {};
+    avisosData.forEach((aviso) => {
+      initialDontShow[aviso.id] = localStorage.getItem(`avisoReinadoRPG_${aviso.id}`) === "oculto";
+    });
+    setDontShowAgain(initialDontShow);
+
+    // Filtrar avisos que NÃO estão marcados como ocultos (valor 'oculto' no localStorage)
     const filtered = avisosData.filter((aviso) => {
       const isHidden = localStorage.getItem(`avisoReinadoRPG_${aviso.id}`) === "oculto";
       return !isHidden;
@@ -49,9 +59,9 @@ export function Announcements() {
         {activeAvisos.map((aviso) => (
           <motion.div
             key={aviso.id}
-            initial={ { opacity: 0, x: 50, scale: 0.9 } }
-            animate={ { opacity: 1, x: 0, scale: 1 } }
-            exit={ { opacity: 0, scale: 0.5, transition: { duration: 0.2 } } }
+            initial={{ opacity: 0, x: 50, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
             className="pointer-events-auto"
           >
             <Card className="bg-stone-950/95 border-2 border-amber-600/50 shadow-[0_0_15px_rgba(217,119,6,0.2)] overflow-hidden">
@@ -73,13 +83,17 @@ export function Announcements() {
                 <p className="font-body text-amber-100/90 leading-relaxed text-sm">
                   {aviso.mensagem}
                 </p>
-                
+
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id={`dont-show-${aviso.id}`}
                     checked={dontShowAgain[aviso.id] || false}
-                    onCheckedChange={(checked) => 
-                      setDontShowAgain(prev => ({ ...prev, [aviso.id]: checked === true }))
+                    onCheckedChange={(checked) =>
+                      setDontShowAgain((prev) => {
+                        const next = { ...prev, [aviso.id]: checked === true };
+                        // Não persistir automaticamente aqui — persistimos ao clicar em "Entendido!" por regra.
+                        return next;
+                      })
                     }
                     className="border-amber-700 data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600"
                   />
