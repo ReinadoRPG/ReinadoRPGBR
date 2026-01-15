@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Home, ShoppingBag, ScrollText, Terminal, Map } from "lucide-react";
 import CartButton from "./CartButton";
+import MusicToggle from "./MusicToggle";
 
 const navItems = [
   { path: "/", label: "Inicio", icon: Home },
@@ -56,6 +57,7 @@ export default function Navigation() {
                 </Link>
               );
             })}
+            <MusicToggle />
             <CartButton />
           </div>
 
@@ -100,6 +102,12 @@ export default function Navigation() {
                     </Link>
                   );
                 })}
+                {/* Coloque o controle de música também no mobile */}
+                <div className="pt-4 border-t border-amber-900/30">
+                  <div className="flex items-center justify-center">
+                    <MusicToggle />
+                  </div>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
